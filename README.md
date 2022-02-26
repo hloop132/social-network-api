@@ -14,6 +14,9 @@ Install insomnia on your computer if you want to test it out
 Create a GET, POST, PUT, or DELETE file and add the proper url in insomnia bar above adn hit SEND. 
 You can add text in the body with JSON.
 
+## Technologie
+Javascript, mongo, mongoose 
+
 ## Contributors
 Brett, Franzt, Hannah
 
