@@ -57,7 +57,7 @@ module.exports = {
       .then((thought) =>
         !thought
           ? res.status(404).json({ message: "No thought with that ID" })
-          : res.json({ message: "You have deleted yout thought and reaction" })
+          : res.json({ message: "You have deleted you thought and reaction" })
       )
       .catch((err) => res.status(500).json(err));
   },
@@ -68,7 +68,7 @@ module.exports = {
       { _id: req.params.thoughtId },
       { $push: { reactions: req.body } }
     )
-      .then((reaction) => reactions.json(reaction))
+      .then((thought) => res.status(200).json(thought))
       .catch((err) => {
         console.log(err);
         return res.status(500).json(err);
@@ -78,19 +78,8 @@ module.exports = {
   deleteReaction(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $pull: { thoughtId: req.params.thoughtId } }
+      { $pull: { reactions: { reactionId: req.params.reactionId } } }
     )
-      .then(
-        (reaction) =>
-          !reaction
-            ? res.status(404).json({ message: "No reaction with that ID" })
-            : Thought,
-        findOneAndUpdate(
-          { reactions: req.params.reactionId },
-          { $pull: { reaction: req.params.reactionID } },
-          { new: true }
-        )
-      )
       .then(() => res.json({ message: "Reaction deleted" }))
       .catch((err) => res.status(500).json(err));
   },

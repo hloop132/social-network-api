@@ -5,7 +5,7 @@ module.exports = {
   // GET all users
   getUser(req, res) {
     User.find()
-    //replaces thought with user
+      //replaces thought with user
       .then((user) => res.json(user))
       .catch((err) => {
         console.log(err);
@@ -25,9 +25,10 @@ module.exports = {
           ? res.status(404).json({ message: "No user with that ID" })
           : res.json(user)
       )
-      .catch((err) => 
+      .catch((err) =>
         // console.log(err);
-      res.status(500).json(err));
+        res.status(500).json(err)
+      );
   },
   // POST a new user:
   createUser(req, res) {
@@ -35,8 +36,8 @@ module.exports = {
       .then((user) => res.json(user))
       .catch((err) => res.status(500).json(err));
   },
-   // PUT to update a user by its _id
-   updateUser(req, res) {
+  // PUT to update a user by its _id
+  updateUser(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
       { $set: req.body },
@@ -52,13 +53,34 @@ module.exports = {
   // DELETE to remove user by its _id
   deleteUser(req, res) {
     User.findOneAndRemove({ _id: req.params.userId })
-      .then((user) =>
-        !user
-          ? res.status(404).json({ message: "No such user exists" })
-          : Thought.deleteMany({ _id: { $in: course.user } })
+      .then(
+        (user) =>
+          !user
+            ? res.status(404).json({ message: "No such user exists" })
+            : res.json({ message: "User deleted!" })
+        //  : Thought.deleteMany({ _id: { $in: course.user } })
       )
-      // .then(() => res.json({ message: "User and thoughts deleted!" }))
+
       .catch((err) => res.status(500).json(err));
   },
- 
+  //create friend
+  addFriend(req, res) {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $push: { friends: req.params.friendId } }
+    )
+      .then((friend) => res.status(200).json(friend))
+      .catch((err) => {
+        console.log(err);
+        return res.status(500).json(err);
+      });
+  },
+  deleteFriend(req, res) {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $pull: { friends: req.params.friendId } }
+    )
+      .then(() => res.json({ message: "Friend deleted" }))
+      .catch((err) => res.status(500).json(err));
+  },
 };

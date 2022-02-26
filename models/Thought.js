@@ -33,7 +33,7 @@ const thoughtSchema = new Schema(
 
 //documents being retuned to reactions
 thoughtSchema.virtual("reactionCount").get(function () {
-    return `${this.reactions}`;
+    return this.reactions.length;
 });
 
 const Thought = model("thought", thoughtSchema);
