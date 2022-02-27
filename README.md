@@ -21,9 +21,16 @@ Javascript, mongo, mongoose
 Brett, Franzt, Hannah
 
 ## Demo
+### Users
 ![Watch Users Demo](./assests/users.gif)
+
+### Thoughts
 ![Watch Thoughts Demo](./assests/thoughts.gif)
+
+### Friends
 ![Watch Friends Demo](./assests/friends.gif)
+
+### Reactions
 ![Watch Reactions Demo](./assests/reaction.gif)
 
 ## Licence 
